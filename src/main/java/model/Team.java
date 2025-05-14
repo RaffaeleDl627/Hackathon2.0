@@ -17,7 +17,6 @@ public class Team {
             this.state = true; // Team diventa definitivo
         }
     }
-
     public void setFiles(File[] files) {
         this.files = files;
     }

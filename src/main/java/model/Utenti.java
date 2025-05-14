@@ -1,7 +1,7 @@
 package model;
-
+import java.util.ArrayList;
 public class Utenti extends IscrittoAllaPiattaforma{
-    private Team[] teams;
+    public Team[] teams;
 
     public Utenti(Team[] teams) {
         this.teams = teams;

@@ -20,9 +20,7 @@ public class Piattaforma {
 
         System.out.println("Classifica finale:");
         for (Voto voto : classifica) {
-            System.out.println("File: " + voto.getFile().getNome() +
-                    ", Giudice: " + voto.getGiudice().getNome() + " " + voto.getGiudice().getCognome() +
-                    ", Valore: " + voto.getValore());
+            System.out.println("File: " + voto.getFile().getNome() + ", Giudice: " + voto.getGiudice().getNome() + " " + voto.getGiudice().getCognome() + ", Valore: " + voto.getValore());
         }
     }
 }
