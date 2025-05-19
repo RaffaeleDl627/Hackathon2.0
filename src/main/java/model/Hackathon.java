@@ -31,7 +31,8 @@ public class Hackathon {
         return dimMaxTeam;
     }
 
-    public Durata getDurata() {
+    public String getDurata() {
+        String durata = this.durata.getDataInizio() + " - " + this.durata.getDataFine();
         return durata;
     }
 
