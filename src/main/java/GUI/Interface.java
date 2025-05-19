@@ -56,9 +56,9 @@ public class Interface {
         final ArrayList<Hackathon> hackathons = new ArrayList<>();
         hackathons.add(new Hackathon("Hack for the Future", "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
         hackathons.add(new Hackathon("Tech Revolution 2", "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
-        hackathons.add(new Hackathon("Hackathon 3", "Torino", 100, 20, new Durata("2023-01-01", "2023-12-31")));
-        hackathons.add(new Hackathon("Hackathon 4", "Genova", 100, 20, new Durata("2024-01-01", "2024-12-31")));
-        hackathons.add(new Hackathon("Hackathon 5", "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
+        hackathons.add(new Hackathon("Code Storm", "Torino", 100, 20, new Durata("2023-01-01", "2023-12-31")));
+        hackathons.add(new Hackathon("Byte Battle", "Genova", 100, 20, new Durata("2024-01-01", "2024-12-31")));
+        hackathons.add(new Hackathon("Dev Rush", "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
 
         for (Hackathon h : hackathons) {
             comboBox1.addItem(h.getTitolo());
