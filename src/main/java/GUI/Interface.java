@@ -1,8 +1,8 @@
 package GUI;
 
+import Controller.Ctrl;
 import model.Durata;
 import model.Hackathon;
-import Controller.Ctrl;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,11 +15,16 @@ public class Interface {
     private JLabel lblDettagli;
     private Ctrl controller;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Interface ui = new Interface();
-            ui.createAndShowGUI();
-        });
+    public Interface() {
+        ArrayList<Hackathon> hackathons = new ArrayList<>();
+        hackathons.add(new Hackathon("Hack for the Future", "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
+        hackathons.add(new Hackathon("Tech Revolution 2", "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
+        hackathons.add(new Hackathon("Code Storm", "Torino", 100, 20, new Durata("2023-01-01", "2023-12-31")));
+        hackathons.add(new Hackathon("Byte Battle", "Genova", 100, 20, new Durata("2024-01-01", "2024-12-31")));
+        hackathons.add(new Hackathon("Dev Rush", "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
+
+        controller = new Ctrl(hackathons);
+        createAndShowGUI();
     }
 
     private void createAndShowGUI() {
@@ -28,7 +33,7 @@ public class Interface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         initComponents();
-        setupHackathons();
+        populateComboBox();
         
         frame.setContentPane(panel1);
         frame.setLocationRelativeTo(null);
@@ -37,20 +42,24 @@ public class Interface {
     }
 
     private void initComponents() {
-        panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout());
+        panel1 = new JPanel(new BorderLayout());
 
-        // Panel superiore che contiene sia la combo box che la label
+        // Panel superiore
         JPanel headerPanel = new JPanel(new BorderLayout());
         
-        // Panel per la combo box
+        // ComboBox panel
         JPanel topPanel = new JPanel(new FlowLayout());
         comboBox1 = new JComboBox<>();
+        comboBox1.addActionListener(e -> {
+            int selectedIndex = comboBox1.getSelectedIndex();
+            txtAreaDettagli.setText(controller.getDettagliHackathon(selectedIndex));
+        });
+        
         topPanel.add(new JLabel("Select Event:"));
         topPanel.add(comboBox1);
         headerPanel.add(topPanel, BorderLayout.NORTH);
 
-        // Label per il titolo
+        // Label titolo
         lblDettagli = new JLabel("Dettagli hackathon");
         lblDettagli.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblDettagli.setHorizontalAlignment(SwingConstants.CENTER);
@@ -58,7 +67,7 @@ public class Interface {
 
         panel1.add(headerPanel, BorderLayout.NORTH);
 
-        // Area di testo per i dettagli
+        // Text area
         txtAreaDettagli = new JTextArea();
         txtAreaDettagli.setEditable(false);
         txtAreaDettagli.setWrapStyleWord(true);
@@ -66,24 +75,22 @@ public class Interface {
         txtAreaDettagli.setFont(new Font("Tahoma", Font.PLAIN, 12));
         txtAreaDettagli.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Aggiungi JTextArea in uno JScrollPane
         JScrollPane scrollPane = new JScrollPane(txtAreaDettagli);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panel1.add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void setupHackathons() {
-        final ArrayList<Hackathon> hackathons = new ArrayList<>();
-        hackathons.add(new Hackathon("Hack for the Future", "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
-        hackathons.add(new Hackathon("Tech Revolution 2", "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
-        hackathons.add(new Hackathon("Code Storm", "Torino", 100, 20, new Durata("2023-01-01", "2023-12-31")));
-        hackathons.add(new Hackathon("Byte Battle", "Genova", 100, 20, new Durata("2024-01-01", "2024-12-31")));
-        hackathons.add(new Hackathon("Dev Rush", "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
-
-        for (Hackathon h : hackathons) {
+    private void populateComboBox() {
+        for (Hackathon h : controller.getHackathons()) {
             comboBox1.addItem(h.getTitolo());
         }
+        
+        // Mostra i dettagli del primo elemento
+        if (comboBox1.getItemCount() > 0) {
+            txtAreaDettagli.setText(controller.getDettagliHackathon(0));
+        }
+    }
 
-        controller = new Ctrl(hackathons, comboBox1, txtAreaDettagli);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Interface());
     }
 }

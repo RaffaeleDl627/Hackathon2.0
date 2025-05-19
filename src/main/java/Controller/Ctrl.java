@@ -1,31 +1,31 @@
 package Controller;
-import model.Hackathon;
 
+import model.Hackathon;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Ctrl {
     private ArrayList<Hackathon> hackathons;
-    private JComboBox<String> comboBox1;
-    private JTextArea lblDettagli;
 
-    public Ctrl(ArrayList<Hackathon> hackathons, JComboBox<String> comboBox1, JTextArea lblDettagli) {
+    public Ctrl(ArrayList<Hackathon> hackathons) {
         this.hackathons = hackathons;
-        this.comboBox1 = comboBox1;
-        this.lblDettagli = lblDettagli;
-        setupListener();
     }
 
-    private void setupListener() {
-        comboBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedIndex = comboBox1.getSelectedIndex();
-                lblDettagli.setText(hackathons.get(selectedIndex).mostraDettagli());
-            }
+    public ArrayList<Hackathon> getHackathons() {
+        return hackathons;
+    }
+
+    public String getDettagliHackathon(int index) {
+        if (index >= 0 && index < hackathons.size()) {
+            Hackathon hackathon = hackathons.get(index);
+            StringBuilder details = new StringBuilder();
+            details.append("Titolo: ").append(hackathon.getTitolo()).append("\n");
+            details.append("Sede: ").append(hackathon.getSede()).append("\n");
+            details.append("Numero massimo di iscritti: ").append(hackathon.getNumMaxIscritti()).append("\n");
+            details.append("Dimensione massima team: ").append(hackathon.getDimMaxTeam()).append("\n");
+            details.append("Durata: ").append(hackathon.getDurata());
+            return details.toString();
         }
-        );
+        return "Nessun hackathon selezionato";
     }
 }
