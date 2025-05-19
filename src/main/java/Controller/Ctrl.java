@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Ctrl {
     private ArrayList<Hackathon> hackathons;
     private JComboBox<String> comboBox1;
-    private JLabel lblDettagli;
+    private JTextArea lblDettagli;
 
-    public Ctrl(ArrayList<Hackathon> hackathons, JComboBox<String> comboBox1, JLabel lblDettagli) {
+    public Ctrl(ArrayList<Hackathon> hackathons, JComboBox<String> comboBox1, JTextArea lblDettagli) {
         this.hackathons = hackathons;
         this.comboBox1 = comboBox1;
         this.lblDettagli = lblDettagli;
@@ -20,12 +20,12 @@ public class Ctrl {
 
     private void setupListener() {
         comboBox1.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            int selectedIndex = comboBox1.getSelectedIndex();
-                                            lblDettagli.setText(hackathons.get(selectedIndex).mostraDettagli());
-                                        }
-                                    }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = comboBox1.getSelectedIndex();
+                lblDettagli.setText(hackathons.get(selectedIndex).mostraDettagli());
+            }
+        }
         );
     }
 }
