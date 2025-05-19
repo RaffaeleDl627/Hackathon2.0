@@ -18,4 +18,17 @@ public class Hackathon {
     public Durata getDurata() {
         return durata;
     }
+    public String getTitolo() {
+        return titolo;
+
+
+    }public String mostraDettagli(){
+        System.out.println("Titolo: " + titolo);
+        System.out.println("\nSede"+ sede);
+        System.out.println("\nNumero massimo di iscritti: " + numMaxIscritti);
+        System.out.println("\n Numero massimo di team: " + dimMaxTeam);
+        System.out.println("\nDurata:"+ durata);
+
+        return null;
+    }
 }

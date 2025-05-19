@@ -6,5 +6,9 @@ import model.*;
 public class Main {
     public static void main(String[] args) {
         Piattaforma pippo = new Piattaforma();
+        IscrittoAllaPiattaforma pietro = new IscrittoAllaPiattaforma();
+        Team[] teams = new Team[2];
+        teams[0] = new Team();
+        teams[1] = new Team();
     }
 }
