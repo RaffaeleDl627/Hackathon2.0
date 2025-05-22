@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import Controller.Ctrl;
+import controller.Ctrl;
 import model.Durata;
 import model.Hackathon;
 import javax.swing.*;

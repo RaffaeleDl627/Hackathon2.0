@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
 import model.Hackathon;
-import javax.swing.*;
+
 import java.util.ArrayList;
 
 public class Ctrl {

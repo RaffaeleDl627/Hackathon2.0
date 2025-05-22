@@ -15,11 +15,11 @@ esiste la classe giudice e la classe file da giudicare.
 Esattamente come la classe Registrazione/iscrizione che ha senso di esistere
 solo se esiste l'evento in quel determinato lasso di tempo.
 
-Nel pakage GUI, ho inserito un'interfaccia grafica in cui, in tempo di esecuzione
+Nel pakage gui, ho inserito un'interfaccia grafica in cui, in tempo di esecuzione
 viene mostrata una finestra con all'interno una jcombobox che presenta 5 eventi hackathon con attributi diversi 
 (implementati con un'arraylist<hackathons>).
 
-Nel package Controller, c'è una classe rinominata Ctrl 
+Nel package controller, c'è una classe rinominata Ctrl 
 Mantiene una lista di oggetti 'Hackathon'
 Fornisce metodi per accedere e gestire questi dati
 'getHackathons()': Restituisce l'intera lista degli hackathon
@@ -31,4 +31,4 @@ Fornisce metodi per accedere e gestire questi dati
         - Controlla che l'indice richiesto sia valido (tra 0 e la dimensione della lista)
         - Se l'indice non è valido, restituisce "Nessun hackathon selezionato"
 
-Questa classe agisce come intermediario tra l'interfaccia utente (GUI) e i dati dell'hackathon
+Questa classe agisce come intermediario tra l'interfaccia utente (gui) e i dati dell'hackathon
