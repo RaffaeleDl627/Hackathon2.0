@@ -16,19 +16,20 @@ public class Index {
     private static final String DEV_RUSH = "Dev Rush";
     private JFrame mainFrame;
     private final Ctrl controller;
-    private ArrayList<Giudice> giudici;
+    private ArrayList<Giudice> giudici = new ArrayList<>();
     private ArrayList<Team> teams;
 
     public Index() {
         // Inizializzazione hackathons
         ArrayList<Hackathon> hackathons = new ArrayList<>();
-        hackathons.add(new Hackathon(HACK_FOR_FUTURE, "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
-        hackathons.add(new Hackathon(TECH_REVOLUTION, "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
-        hackathons.add(new Hackathon(CODE_STORM, "Torino", 100, 20, new Durata("2023-01-01", "2023-12-31")));
-        hackathons.add(new Hackathon(BYTE_BATTLE, "Genova", 100, 20, new Durata("2024-01-01", "2024-12-31")));
-        hackathons.add(new Hackathon(DEV_RUSH, "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
+        hackathons.add(new Hackathon(HACK_FOR_FUTURE, "Milano", 100, 5, new Durata("2021-01-01", "2021-12-31")));
+        hackathons.add(new Hackathon(TECH_REVOLUTION, "Roma", 150, 4, new Durata("2022-06-11", "2022-06-28")));
+        hackathons.add(new Hackathon(CODE_STORM, "Torino", 100, 5, new Durata("2023-01-01", "2023-12-31")));
+        hackathons.add(new Hackathon(BYTE_BATTLE, "Genova", 100, 4, new Durata("2024-01-01", "2024-12-31")));
+        hackathons.add(new Hackathon(DEV_RUSH, "Bologna", 100, 5, new Durata("2025-01-01", "2025-12-31")));
 
-        controller = new Ctrl(hackathons);
+        controller = new Ctrl(hackathons, giudici);
+        giudici = new ArrayList<>();
         initializeData();
         createAndShowGUI();
     }
@@ -36,8 +37,6 @@ public class Index {
     private void initializeData() {
         // Inizializzazione teams
         teams = new ArrayList<>();
-        // Aggiunta teams per ogni hackathon...
-        // (mantenere il codice esistente per l'aggiunta dei teams)
 
 // Teams per "Hack for the Future"
 teams.add(new Team("CodeMasters", 9, HACK_FOR_FUTURE));
@@ -143,11 +142,9 @@ teams.add(new Team("FastForward", 9, DEV_RUSH));
         area.setLineWrap(true);
         area.setFont(new Font(FONT_ARIAL, Font.PLAIN, 14));
         area.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        area.setText("Un hackathon è un evento di programmazione intensivo dove sviluppatori, " +
-                "designer e altri professionisti collaborano per creare soluzioni innovative in un periodo " +
-                "di tempo limitato. Questi eventi promuovono la creatività, il lavoro di squadra e " +
-                "l'innovazione, permettendo ai partecipanti di sviluppare progetti pratici e condividere " +
-                "conoscenze con altri appassionati del settore.");
+        area.setText("Un hackathon, ovvero una \"maratona di hacking\", è un evento durante il quale," +
+                " team di partecipanti si sfidano per progettare e implementare nuove soluzioni basate " +
+                "su una certa tecnologia o mirate a un certo ambito applicativo.");
         return area;
     }
 

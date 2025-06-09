@@ -1,28 +1,19 @@
 package controller;
 
-import model.Hackathon;
+import model.*;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Ctrl {
-    private List<Hackathon> hackathons;
-
-    public Ctrl(List<Hackathon> hackathons) {
-        this.hackathons = hackathons;
+    private final List<Hackathon> hackathons;
+    public Ctrl(List<Hackathon> hackathons, List<Giudice> giudici) {
+        if (hackathons == null || giudici == null) {
+            throw new IllegalArgumentException("I parametri non possono essere null");
+        }
+        this.hackathons = new ArrayList<>(hackathons);
     }
 
     public List<Hackathon> getHackathons() {
-        return hackathons;
-    }
-
-    public String getDettagliHackathon(int index) {
-        if (index >= 0 && index < hackathons.size()) {
-            Hackathon hackathon = hackathons.get(index);
-            return "Titolo: " + hackathon.getTitolo() + "\n" +
-                    "Sede: " + hackathon.getSede() + "\n" +
-                    "Numero massimo di iscritti: " + hackathon.getNumMaxIscritti() + "\n" +
-                    "Dimensione massima team: " + hackathon.getDimMaxTeam() + "\n" +
-                    "Durata: " + hackathon.getDurata();
-        }
-        return "Nessun hackathon selezionato";
+        return new ArrayList<>(hackathons);
     }
 }
