@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EventiForm extends JFrame {
-    private static final String FONT_ARIAL = "Arial";
-    private final Ctrl controller;
+
+    private final transient Ctrl controller;
 
     public EventiForm(JFrame parent, Ctrl controller) {
         super("Lista Eventi");
@@ -18,7 +18,7 @@ public class EventiForm extends JFrame {
 
     private void setupUI() {
         setSize(800, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         JPanel mainPanel = new JPanel(new BorderLayout());
         
@@ -41,7 +41,7 @@ public class EventiForm extends JFrame {
         dettagliArea.setWrapStyleWord(true);
         dettagliArea.setLineWrap(true);
         dettagliArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        dettagliArea.setFont(new Font(FONT_ARIAL, Font.PLAIN, 14));
+        dettagliArea.setFont(new Font("Arial", Font.PLAIN, 14));
         
         JScrollPane dettagliScrollPane = new JScrollPane(dettagliArea);
         rightPanel.add(new JLabel("Dettagli evento:", SwingConstants.CENTER), BorderLayout.NORTH);

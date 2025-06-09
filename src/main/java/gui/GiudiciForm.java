@@ -3,13 +3,13 @@ package gui;
 import model.Giudice;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class GiudiciForm extends JFrame {
     private static final String FONT_ARIAL = "Arial";
-    private final ArrayList<Giudice> giudici;
+    private final transient List<Giudice> giudici;
 
-    public GiudiciForm(JFrame parent, ArrayList<Giudice> giudici) {
+    public GiudiciForm(JFrame parent, List<Giudice> giudici) {
         super("GIUDICI");
         this.giudici = giudici;
         setupUI();
@@ -18,7 +18,7 @@ public class GiudiciForm extends JFrame {
 
     private void setupUI() {
         setSize(800, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -56,12 +56,11 @@ public class GiudiciForm extends JFrame {
                 int selectedIndex = lista.getSelectedIndex();
                 if (selectedIndex != -1) {
                     Giudice giudice = giudici.get(selectedIndex);
-                    StringBuilder dettagli = new StringBuilder();
-                    dettagli.append("Nome: ").append(giudice.getNome()).append("\n\n");
-                    dettagli.append("Cognome: ").append(giudice.getCognome()).append("\n\n");
-                    dettagli.append("Hackathon: ").append(giudice.getHackathon()).append("\n");
+                    String dettagli = "Nome: " + giudice.getNome() + "\n\n" +
+                            "Cognome: " + giudice.getCognome() + "\n\n" +
+                            "Hackathon: " + giudice.getHackathon() + "\n";
 
-                    dettagliArea.setText(dettagli.toString());
+                    dettagliArea.setText(dettagli);
                 }
             }
         });

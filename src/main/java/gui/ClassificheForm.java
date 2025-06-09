@@ -6,23 +6,25 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ClassificheForm extends JFrame {
     private static final String FONT_ARIAL = "Arial";
-    private final Ctrl controller;
-    private final ArrayList<Team> teams;
+    private final transient Ctrl controller;
+    private final transient List<Team> teams;
 
-    public ClassificheForm(JFrame parent, Ctrl controller, ArrayList<Team> teams) {
+    public ClassificheForm(JFrame parent, Ctrl controller, List<Team> teams) {
         super("CLASSIFICHE");
-        this.controller = controller;
-        this.teams = teams;
+        this.controller = Objects.requireNonNull(controller, "Il controller non può essere null");
+        this.teams = Objects.requireNonNull(teams, "La lista dei team non può essere null");
         setupUI();
         setLocationRelativeTo(parent);
     }
 
     private void setupUI() {
-        setSize(800, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -35,9 +37,7 @@ public class ClassificheForm extends JFrame {
         // Panel sinistro per la lista degli hackathon
         JPanel leftPanel = new JPanel(new BorderLayout());
         DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (var h : controller.getHackathons()) {
-            listModel.addElement(h.getTitolo());
-        }
+        controller.getHackathons().forEach(h -> listModel.addElement(h.getTitolo()));
 
         JList<String> listaHackathon = new JList<>(listModel);
         JScrollPane listScrollPane = new JScrollPane(listaHackathon);
@@ -55,13 +55,10 @@ public class ClassificheForm extends JFrame {
             if (!e.getValueIsAdjusting()) {
                 String selectedHackathon = listaHackathon.getSelectedValue();
                 if (selectedHackathon != null) {
-                    ArrayList<Team> teamsFiltrati = new ArrayList<>();
-                    for (Team t : teams) {
-                        if (t.getHackathon().equals(selectedHackathon)) {
-                            teamsFiltrati.add(t);
-                        }
-                    }
-                    teamsFiltrati.sort((t1, t2) -> Integer.compare(t2.getGiudizioGiudici(), t1.getGiudizioGiudici()));
+                    ArrayList<Team> teamsFiltrati = teams.stream()
+                            .filter(t -> t.getHackathon().equals(selectedHackathon))
+                            .sorted((t1, t2) -> Integer.compare(t2.getGiudizioGiudici(), t1.getGiudizioGiudici()))
+                            .collect(Collectors.toCollection(ArrayList::new));
 
                     String[] columnNames = {"Posizione", "Team", "Giudizio Giudici"};
                     Object[][] data = new Object[teamsFiltrati.size()][3];
@@ -78,9 +75,9 @@ public class ClassificheForm extends JFrame {
         });
 
         JSplitPane splitPane = new JSplitPane(
-            JSplitPane.HORIZONTAL_SPLIT,
-            leftPanel,
-            rightPanel
+                JSplitPane.HORIZONTAL_SPLIT,
+                leftPanel,
+                rightPanel
         );
         splitPane.setDividerLocation(300);
 
@@ -88,5 +85,10 @@ public class ClassificheForm extends JFrame {
         mainPanel.add(splitPane, BorderLayout.CENTER);
 
         add(mainPanel);
+        
+        // Usa pack() invece di setSize() per dimensionamento ottimale
+        pack();
+        // Imposta dimensione minima
+        setMinimumSize(new Dimension(600, 400));
     }
 }

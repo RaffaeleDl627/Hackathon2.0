@@ -1,30 +1,27 @@
 package controller;
 
 import model.Hackathon;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Ctrl {
-    private ArrayList<Hackathon> hackathons;
+    private List<Hackathon> hackathons;
 
-    public Ctrl(ArrayList<Hackathon> hackathons) {
+    public Ctrl(List<Hackathon> hackathons) {
         this.hackathons = hackathons;
     }
 
-    public ArrayList<Hackathon> getHackathons() {
+    public List<Hackathon> getHackathons() {
         return hackathons;
     }
 
     public String getDettagliHackathon(int index) {
         if (index >= 0 && index < hackathons.size()) {
             Hackathon hackathon = hackathons.get(index);
-            StringBuilder details = new StringBuilder();
-            details.append("Titolo: ").append(hackathon.getTitolo()).append("\n");
-            details.append("Sede: ").append(hackathon.getSede()).append("\n");
-            details.append("Numero massimo di iscritti: ").append(hackathon.getNumMaxIscritti()).append("\n");
-            details.append("Dimensione massima team: ").append(hackathon.getDimMaxTeam()).append("\n");
-            details.append("Durata: ").append(hackathon.getDurata());
-            return details.toString();
+            return "Titolo: " + hackathon.getTitolo() + "\n" +
+                    "Sede: " + hackathon.getSede() + "\n" +
+                    "Numero massimo di iscritti: " + hackathon.getNumMaxIscritti() + "\n" +
+                    "Dimensione massima team: " + hackathon.getDimMaxTeam() + "\n" +
+                    "Durata: " + hackathon.getDurata();
         }
         return "Nessun hackathon selezionato";
     }
