@@ -18,6 +18,7 @@ public class Index {
     private ArrayList<Team> teams;
 
     public Index() {
+        // Inizializzazione hackathons
         ArrayList<Hackathon> hackathons = new ArrayList<>();
         hackathons.add(new Hackathon("Hack for the Future", "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
         hackathons.add(new Hackathon("Tech Revolution 2", "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
@@ -26,9 +27,15 @@ public class Index {
         hackathons.add(new Hackathon("Dev Rush", "Bologna", 100, 20, new Durata("2025-01-01", "2025-12-31")));
 
         controller = new Ctrl(hackathons);
-        
+        initializeData();
+        createAndShowGUI();
+    }
+
+    private void initializeData() {
         // Inizializzazione teams
         teams = new ArrayList<>();
+        // Aggiunta teams per ogni hackathon...
+        // (mantenere il codice esistente per l'aggiunta dei teams)
 
 // Teams per "Hack for the Future"
 teams.add(new Team("CodeMasters", 9, "Hack for the Future"));
@@ -62,7 +69,13 @@ teams.add(new Team("CodeComets", 9, "Dev Rush"));
 teams.add(new Team("RapidRebels", 8, "Dev Rush"));
 teams.add(new Team("VelocityVanguard", 7, "Dev Rush"));
 teams.add(new Team("FastForward", 9, "Dev Rush"));
-        createAndShowGUI();
+
+        // Inizializzazione giudici
+        giudici = new ArrayList<>();
+        giudici.add(new Giudice("Marco", "Rossi", "Hack for the Future"));
+        giudici.add(new Giudice("Laura", "Bianchi", "Tech Revolution 2"));
+        giudici.add(new Giudice("Giuseppe", "Verdi", "Code Storm"));
+        giudici.add(new Giudice("Anna", "Neri", "Byte Battle"));
     }
 
     private void createAndShowGUI() {
@@ -70,7 +83,6 @@ teams.add(new Team("FastForward", 9, "Dev Rush"));
         mainFrame.setSize(600, 400);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Panel principale con BoxLayout verticale
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
@@ -79,284 +91,78 @@ teams.add(new Team("FastForward", 9, "Dev Rush"));
         titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Panel per il titolo con margini
         JPanel titlePanel = new JPanel();
         titlePanel.add(titleLabel);
         titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
-        // Creazione della toolbar
-        toolBar = new JToolBar();
-        toolBar.setFloatable(false);
-        toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
-        toolBar.setBorderPainted(false);
+        // Toolbar
+        toolBar = createToolBar();
 
-        // Creazione dei pulsanti
-        JButton eventiButton = new JButton("Eventi");
-        JButton giudiciButton = new JButton("Giudici");  // invece di button2
-        JButton classificheButton = new JButton("Classifiche");  // invece di button3
-        classificheButton.addActionListener(e -> mostraClassifiche());
-
-        // Aggiunta dei pulsanti alla toolbar
-        toolBar.add(eventiButton);
-        toolBar.add(giudiciButton);
-        toolBar.add(classificheButton);
-
-        // Gestione dell'evento click sul pulsante Eventi
-        eventiButton.addActionListener(e -> mostraListaEventi());
-        giudiciButton.addActionListener(e -> mostraListaGiudici());
-
-        // Area di testo per la descrizione
-        descriptionArea = new JTextArea();
-        descriptionArea.setEditable(false);
-        descriptionArea.setWrapStyleWord(true);
-        descriptionArea.setLineWrap(true);
-        descriptionArea.setFont(new Font(FONT_ARIAL, Font.PLAIN, 14));
-        descriptionArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        descriptionArea.setText("Un hackathon è un evento di programmazione intensivo dove sviluppatori, " +
-                "designer e altri professionisti collaborano per creare soluzioni innovative in un periodo " +
-                "di tempo limitato. Questi eventi promuovono la creatività, il lavoro di squadra e " +
-                "l'innovazione, permettendo ai partecipanti di sviluppare progetti pratici e condividere " +
-                "conoscenze con altri appassionati del settore.");
-
+        // Area descrizione
+        descriptionArea = createDescriptionArea();
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
         scrollPane.setPreferredSize(new Dimension(550, 200));
 
-        // Aggiunta componenti al panel principale
         mainPanel.add(titlePanel);
         mainPanel.add(toolBar);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Spazio tra toolbar e area testo
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(scrollPane);
 
-        // Aggiunta del panel principale al frame
         mainFrame.add(mainPanel);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
     }
 
+    private JToolBar createToolBar() {
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+        toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
+        toolBar.setBorderPainted(false);
+
+        JButton eventiButton = new JButton("Eventi");
+        JButton giudiciButton = new JButton("Giudici");
+        JButton classificheButton = new JButton("Classifiche");
+
+        eventiButton.addActionListener(e -> mostraListaEventi());
+        giudiciButton.addActionListener(e -> mostraListaGiudici());
+        classificheButton.addActionListener(e -> mostraClassifiche());
+
+        toolBar.add(eventiButton);
+        toolBar.add(giudiciButton);
+        toolBar.add(classificheButton);
+
+        return toolBar;
+    }
+
+    private JTextArea createDescriptionArea() {
+        JTextArea area = new JTextArea();
+        area.setEditable(false);
+        area.setWrapStyleWord(true);
+        area.setLineWrap(true);
+        area.setFont(new Font(FONT_ARIAL, Font.PLAIN, 14));
+        area.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        area.setText("Un hackathon è un evento di programmazione intensivo dove sviluppatori, " +
+                "designer e altri professionisti collaborano per creare soluzioni innovative in un periodo " +
+                "di tempo limitato. Questi eventi promuovono la creatività, il lavoro di squadra e " +
+                "l'innovazione, permettendo ai partecipanti di sviluppare progetti pratici e condividere " +
+                "conoscenze con altri appassionati del settore.");
+        return area;
+    }
+
     private void mostraListaEventi() {
-        JFrame eventiFrame = new JFrame("Lista Eventi");
-        eventiFrame.setSize(800, 400);  // Aumentata la larghezza per accommodare i dettagli
-        
-        // Panel principale con BorderLayout
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        
-        // Panel sinistro per la lista
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (Hackathon h : controller.getHackathons()) {
-            listModel.addElement(h.getTitolo());
-        }
-        
-        JList<String> lista = new JList<>(listModel);
-        JScrollPane listScrollPane = new JScrollPane(lista);
-        leftPanel.add(new JLabel("Eventi disponibili:", SwingConstants.CENTER), BorderLayout.NORTH);
-        leftPanel.add(listScrollPane, BorderLayout.CENTER);
-        
-        // Panel destro per i dettagli
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        JTextArea dettagliArea = new JTextArea();
-        dettagliArea.setEditable(false);
-        dettagliArea.setWrapStyleWord(true);
-        dettagliArea.setLineWrap(true);
-        dettagliArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        dettagliArea.setFont(new Font(FONT_ARIAL, Font.PLAIN, 14));
-        
-        JScrollPane dettagliScrollPane = new JScrollPane(dettagliArea);
-        rightPanel.add(new JLabel("Dettagli evento:", SwingConstants.CENTER), BorderLayout.NORTH);
-        rightPanel.add(dettagliScrollPane, BorderLayout.CENTER);
-        
-        // Aggiunta listener per la selezione della lista
-        lista.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedIndex = lista.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    Hackathon hackathon = controller.getHackathons().get(selectedIndex);
-                    StringBuilder dettagli = new StringBuilder();
-                    dettagli.append("Titolo: ").append(hackathon.getTitolo()).append("\n\n");
-                    dettagli.append("Città: ").append(hackathon.getSede()).append("\n\n");
-                    dettagli.append("Numero partecipanti: ").append(hackathon.getNumMaxIscritti()).append("\n\n");
-                    dettagli.append("Numero team: ").append(hackathon.getDimMaxTeam()).append("\n\n");
-                    dettagli.append("Durata:\n");
-                    dettagli.append("Data: ").append(hackathon.getDurata()).append("\n");
-
-                    
-                    dettagliArea.setText(dettagli.toString());
-                }
-            }
-        });
-        
-        // Split pane per dividere la lista e i dettagli
-        JSplitPane splitPane = new JSplitPane(
-            JSplitPane.HORIZONTAL_SPLIT,
-            leftPanel,
-            rightPanel
-        );
-        splitPane.setDividerLocation(300);
-        
-        mainPanel.add(splitPane, BorderLayout.CENTER);
-        
-        eventiFrame.add(mainPanel);
-        eventiFrame.setLocationRelativeTo(mainFrame);
-        eventiFrame.setVisible(true);
-
-        // Inizializzazione giudici
-        giudici = new ArrayList<>();
-        giudici.add(new Giudice("Marco", "Rossi", "Hack for the Future"));
-        giudici.add(new Giudice("Laura", "Bianchi", "Tech Revolution 2"));
-        giudici.add(new Giudice("Giuseppe", "Verdi", "Code Storm"));
-        giudici.add(new Giudice("Anna", "Neri", "Byte Battle"));
-
-        createAndShowGUI();
+        EventiForm form = new EventiForm(mainFrame, controller);
+        form.setVisible(true);
     }
 
     private void mostraListaGiudici() {
-        JFrame giudiciFrame = new JFrame("GIUDICI");
-        giudiciFrame.setSize(800, 400);
-        giudiciFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // Panel principale con BorderLayout
-        JPanel mainPanel = new JPanel(new BorderLayout());
-
-        // Titolo
-        JLabel titleLabel = new JLabel("GIUDICI");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-
-        // Panel sinistro per la lista
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (Giudice g : giudici) {
-            listModel.addElement(g.getNome() + " " + g.getCognome());
-        }
-
-        JList<String> lista = new JList<>(listModel);
-        JScrollPane listScrollPane = new JScrollPane(lista);
-        leftPanel.add(listScrollPane);
-
-        // Panel destro per i dettagli
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        JTextArea dettagliArea = new JTextArea();
-        dettagliArea.setEditable(false);
-        dettagliArea.setWrapStyleWord(true);
-        dettagliArea.setLineWrap(true);
-        dettagliArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        dettagliArea.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JScrollPane dettagliScrollPane = new JScrollPane(dettagliArea);
-        rightPanel.add(dettagliScrollPane);
-
-        // Listener per la selezione della lista
-        lista.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedIndex = lista.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    Giudice giudice = giudici.get(selectedIndex);
-                    StringBuilder dettagli = new StringBuilder();
-                    dettagli.append("Nome: ").append(giudice.getNome()).append("\n\n");
-                    dettagli.append("Cognome: ").append(giudice.getCognome()).append("\n\n");
-                    dettagli.append("Hackathon: ").append(giudice.getHackathon()).append("\n");
-
-                    dettagliArea.setText(dettagli.toString());
-                }
-            }
-        });
-
-        // Split pane per dividere la lista e i dettagli
-        JSplitPane splitPane = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                leftPanel,
-                rightPanel
-        );
-        splitPane.setDividerLocation(300);
-
-        // Aggiunta componenti al frame
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(splitPane, BorderLayout.CENTER);
-
-        giudiciFrame.add(mainPanel);
-        giudiciFrame.setLocationRelativeTo(mainFrame);
-        giudiciFrame.setVisible(true);
+        GiudiciForm form = new GiudiciForm(mainFrame, giudici);
+        form.setVisible(true);
     }
 
-private void mostraClassifiche() {
-    JFrame classificheFrame = new JFrame("CLASSIFICHE");
-    classificheFrame.setSize(800, 400);
-    classificheFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-    // Panel principale con BorderLayout
-    JPanel mainPanel = new JPanel(new BorderLayout());
-
-    // Titolo
-    JLabel titleLabel = new JLabel("CLASSIFICHE");
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-
-    // Panel sinistro per la lista degli hackathon
-    JPanel leftPanel = new JPanel(new BorderLayout());
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    for (Hackathon h : controller.getHackathons()) {
-        listModel.addElement(h.getTitolo());
+    private void mostraClassifiche() {
+        ClassificheForm form = new ClassificheForm(mainFrame, controller, teams);
+        form.setVisible(true);
     }
-
-    JList<String> listaHackathon = new JList<>(listModel);
-    JScrollPane listScrollPane = new JScrollPane(listaHackathon);
-    leftPanel.add(new JLabel("Hackathons:", SwingConstants.CENTER), BorderLayout.NORTH);
-    leftPanel.add(listScrollPane, BorderLayout.CENTER);
-
-    // Panel destro per la classifica
-    JPanel rightPanel = new JPanel(new BorderLayout());
-    JTable classificaTable = new JTable();
-    JScrollPane tableScrollPane = new JScrollPane(classificaTable);
-    rightPanel.add(new JLabel("Classifica:", SwingConstants.CENTER), BorderLayout.NORTH);
-    rightPanel.add(tableScrollPane, BorderLayout.CENTER);
-
-    // Listener per la selezione dell'hackathon
-    listaHackathon.addListSelectionListener(e -> {
-        if (!e.getValueIsAdjusting()) {
-            String selectedHackathon = listaHackathon.getSelectedValue();
-            if (selectedHackathon != null) {
-                // Filtra i team per l'hackathon selezionato e ordinali per giudizio
-                ArrayList<Team> teamsFiltrati = new ArrayList<>();
-                for (Team t : teams) {
-                    if (t.getHackathon().equals(selectedHackathon)) {
-                        teamsFiltrati.add(t);
-                    }
-                }
-                teamsFiltrati.sort((t1, t2) -> Integer.compare(t2.getGiudizioGiudici(), t1.getGiudizioGiudici()));
-
-                // Crea il modello della tabella
-                String[] columnNames = {"Posizione", "Team", "Giudizio Giudici"};
-                Object[][] data = new Object[teamsFiltrati.size()][3];
-                for (int i = 0; i < teamsFiltrati.size(); i++) {
-                    Team team = teamsFiltrati.get(i);
-                    data[i][0] = i + 1;
-                    data[i][1] = team.getNome();
-                    data[i][2] = team.getGiudizioGiudici();
-                }
-
-                classificaTable.setModel(new DefaultTableModel(data, columnNames));
-            }
-        }
-    });
-
-    // Split pane per dividere la lista e la classifica
-    JSplitPane splitPane = new JSplitPane(
-        JSplitPane.HORIZONTAL_SPLIT,
-        leftPanel,
-        rightPanel
-    );
-    splitPane.setDividerLocation(300);
-
-    // Aggiunta componenti al frame
-    mainPanel.add(titleLabel, BorderLayout.NORTH);
-    mainPanel.add(splitPane, BorderLayout.CENTER);
-
-    classificheFrame.add(mainPanel);
-    classificheFrame.setLocationRelativeTo(mainFrame);
-    classificheFrame.setVisible(true);
-}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Index());
