@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Interface {
+public class Index {
     private static final String FONT_ARIAL = "Arial";
     private JFrame mainFrame;
     private JToolBar toolBar;
@@ -17,7 +17,7 @@ public class Interface {
     private ArrayList<Giudice> giudici;
     private ArrayList<Team> teams;
 
-    public Interface() {
+    public Index() {
         ArrayList<Hackathon> hackathons = new ArrayList<>();
         hackathons.add(new Hackathon("Hack for the Future", "Milano", 100, 20, new Durata("2021-01-01", "2021-12-31")));
         hackathons.add(new Hackathon("Tech Revolution 2", "Roma", 150, 30, new Durata("2022-06-11", "2022-06-28")));
@@ -56,44 +56,12 @@ teams.add(new Team("ScriptStars", 7, "Byte Battle"));
 teams.add(new Team("NetworkNinjas", 9, "Byte Battle"));
 teams.add(new Team("CipherSquad", 10, "Byte Battle"));
 
-// Teams per "Game Jam 2024"
-teams.add(new Team("GameGurus", 9, "Game Jam 2024"));
-teams.add(new Team("PixelPros", 8, "Game Jam 2024"));
-teams.add(new Team("UnityUnited", 10, "Game Jam 2024"));
-teams.add(new Team("RenderRangers", 7, "Game Jam 2024"));
-
-// Teams per "AI Innovation"
-teams.add(new Team("DeepMinds", 10, "AI Innovation"));
-teams.add(new Team("NeuralNinjas", 9, "AI Innovation"));
-teams.add(new Team("TensorTeam", 8, "AI Innovation"));
-teams.add(new Team("MLMasters", 7, "AI Innovation"));
-
-// Teams per "Mobile Dev Marathon"
-teams.add(new Team("AppArtisans", 9, "Mobile Dev Marathon"));
-teams.add(new Team("SwiftSquad", 8, "Mobile Dev Marathon"));
-teams.add(new Team("AndroidAces", 10, "Mobile Dev Marathon"));
-teams.add(new Team("MobileMinds", 7, "Mobile Dev Marathon"));
-teams.add(new Team("ReactRangers", 6, "Mobile Dev Marathon"));
-
-// Teams per "Security Challenge"
-teams.add(new Team("CryptoKings", 10, "Security Challenge"));
-teams.add(new Team("FirewallForce", 9, "Security Challenge"));
-teams.add(new Team("SecureSquad", 8, "Security Challenge"));
-teams.add(new Team("HashGuards", 7, "Security Challenge"));
-        
-// Teams per "Data Science Sprint" (l'ultimo hackathon)
-teams.add(new Team("DataWizards", 9, "Data Science Sprint"));
-teams.add(new Team("AnalyticsAces", 10, "Data Science Sprint"));
-teams.add(new Team("PythonPros", 8, "Data Science Sprint"));
-teams.add(new Team("StatSquad", 7, "Data Science Sprint"));
-teams.add(new Team("VisualizationVanguard", 9, "Data Science Sprint"));
-
 // Teams per "Dev Rush"
-teams.add(new Team("SprintSages", 10, "DEV RUSH"));
-teams.add(new Team("CodeComets", 9, "DEV RUSH"));
-teams.add(new Team("RapidRebels", 8, "DEV RUSH"));
-teams.add(new Team("VelocityVanguard", 7, "DEV RUSH"));
-teams.add(new Team("FastForward", 9, "DEV RUSH"));
+teams.add(new Team("SprintSages", 10, "Dev Rush"));
+teams.add(new Team("CodeComets", 9, "Dev Rush"));
+teams.add(new Team("RapidRebels", 8, "Dev Rush"));
+teams.add(new Team("VelocityVanguard", 7, "Dev Rush"));
+teams.add(new Team("FastForward", 9, "Dev Rush"));
         createAndShowGUI();
     }
 
@@ -391,6 +359,6 @@ private void mostraClassifiche() {
 }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Interface());
+        SwingUtilities.invokeLater(() -> new Index());
     }
 }
