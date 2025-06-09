@@ -1,28 +1,25 @@
 package model;
 
 public class Team {
-    private boolean state; // true: definitivo, false: provvisorio
-    private File[] files; // Associazione con la classe File (1 -> 0..*)
+    private String nome;
+    private int giudizioGiudici;
+    private String hackathon;
 
-    public Team() {
-        this.state = false; // Inizialmente il team è provvisorio
+    public Team(String nome, int giudizioGiudici, String hackathon) {
+        this.nome = nome;
+        this.giudizioGiudici = giudizioGiudici;
+        this.hackathon = hackathon;
     }
 
-    public boolean isState() {
-        return state;
+    public String getNome() {
+        return nome;
     }
 
-    public void switchState(Registrazione registrazione) {
-        if (!registrazione.isState()) { // Se registrazione chiusa
-            this.state = true; // Team diventa definitivo
-        }
-    }
-    public void setFiles(File[] files) {
-        this.files = files;
+    public int getGiudizioGiudici() {
+        return giudizioGiudici;
     }
 
-    public File[] getFiles() {
-        return files;
+    public String getHackathon() {
+        return hackathon;
     }
-
 }

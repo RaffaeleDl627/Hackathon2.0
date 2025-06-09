@@ -1,12 +1,14 @@
 package model;
 
-public class Giudice extends IscrittoAllaPiattaforma{
+public class Giudice {
     private String nome;
     private String cognome;
+    private String hackathon;
 
-    public Giudice(String nome, String cognome) {
+    public Giudice(String nome, String cognome, String hackathon) {
         this.nome = nome;
         this.cognome = cognome;
+        this.hackathon = hackathon;
     }
 
     public String getNome() {
@@ -17,8 +19,7 @@ public class Giudice extends IscrittoAllaPiattaforma{
         return cognome;
     }
 
-    public Voto assegnaVoto(File file, int valore) {
-        return new Voto(valore, file, this); // Restituisce un'istanza di Voto
+    public String getHackathon() {
+        return hackathon;
     }
-
 }
